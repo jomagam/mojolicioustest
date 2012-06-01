@@ -3,9 +3,9 @@
 use Mojolicious::Lite;
 use Stuff;
 
-get '/' => 'index';
+get  '/' => 'index';
 
-any [qw{POST GET}] => '/ajax/:function/:param' => sub { Stuff::ajaxhandler(shift) };
+post '/ajax' => sub { Stuff::ajaxhandler(shift) };
 
 app->start;
 
@@ -70,7 +70,7 @@ __DATA__
 		    }
 		}, COMMUNISATION_TIMEOUT);
 
-		$.getJSON("/ajax/remove/" + id, function(json){
+		$.post("/ajax", { function: 'remove', user: id}, function(json){
 		    if(json.result == 'OK'){
 		        success = 1;
 		    }
@@ -80,7 +80,7 @@ __DATA__
 			    raise_error(id + " could not be removed:" + json.result);
 			}
 		    }
-		});
+		}, "json");
 	    }
 	    function make_favorite(){
 		var id = $(this).parent().attr('id');
@@ -106,7 +106,7 @@ __DATA__
 		    }
 		}, COMMUNISATION_TIMEOUT);
 
-		$.getJSON("/ajax/yesfavorite/" + id, function(json){
+		$.post("/ajax", { function: 'yesfavorite', user: id}, function(json){
 		    if(json.result == 'OK'){
 		        success = 1;
 		    }
@@ -142,7 +142,7 @@ __DATA__
 		    }
 		}, COMMUNISATION_TIMEOUT);
 
-		$.getJSON("/ajax/nofavorite/" + id, function(json){
+		$.post("/ajax", { function: 'nofavorite', user: id}, function(json){
 		    if(json.result == 'OK'){
 		        success = 1;
 		    }
@@ -152,7 +152,7 @@ __DATA__
 			    raise_error(id + " could not be updated:" + json.result);
 			}
 		    }
-		});
+		}, "json");
 	     };
 	     function addnewuser(){
 	        var newuser = $("#newuser").val();
@@ -176,7 +176,7 @@ __DATA__
 		    }
 
 		}, COMMUNISATION_TIMEOUT);
-		$.getJSON("/ajax/addnewuser/" + newuser, function(json){
+		$.post("/ajax", { function : 'addnewuser', user: newuser}, function(json){
 		    if(json.result == "OK"){
 			success = 1;
 		    }
@@ -186,7 +186,7 @@ __DATA__
 			    raise_error(newuser + " could not be created: " + json.result);
 			}
 		    }
-		});
+		}, "json");
 	     }
 	     function raise_error(text){
 	        $("#error_texts").append('<div>' + text + '</div>');

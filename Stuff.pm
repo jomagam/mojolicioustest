@@ -29,7 +29,7 @@ sub ajaxhandler {
 
     my $function = $self->param('function');
 
-    my $user = lc $self->param('param');
+    my $user = lc $self->param('user');
     $user =~ s{_.*}{}; # sometimes the user name passed in has _$TIMESTAMP appended to it
 
     my $users = Stuff::get_users();
