@@ -5,7 +5,7 @@ use Stuff;
 
 get '/' => 'index';
 
-get '/ajax/:function/:param' => sub { Stuff::ajaxhandler(shift) };
+any [qw{POST GET}] => '/ajax/:function/:param' => sub { Stuff::ajaxhandler(shift) };
 
 app->start;
 
