@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+	        $(document).on("click", ".remove_link", function(){
+		    $(this).hide("slow");
+		});
+		$("#addbutton").click(function (){
+		    var newuser = $("#newuser").val();
+		    $("#people").append('<div class="remove_link">' + newuser + '</div>');
+		});
+	    });
+	</script>
+
+<body>
+<div>Add: <input type="text" width="12" id="newuser"> <input type="button" value="Add" id="addbutton"></div>
+
+<div id="people">
+<div class="remove_link">First</div>
+</div>
+</body>
+</html>
+
+ 
+
+
