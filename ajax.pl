@@ -10,25 +10,6 @@ post '/ajax' => sub { Stuff::ajaxhandler(shift) };
 app->start;
 
 
-sub Mojolicious::Controller::current_interests {
-    my $html;
-
-    my $users = Stuff::get_users();
-
-    foreach my $name (keys %$users){
-	my $is_favorite = $users->{$name}{is_favorite};
-	$html .= qq{<div class="auser" id="$name">};
-	if($is_favorite){
-	    $html .= qq|<span class="favorite" id="${name}_name">$name</span> <a id="${name}_fave_change_link" class="unfavorite_link" href="#"><span id="${name}_fave_change_text">Unfavorite</span></a> <a class="remove_link" href="#">Remove</a>|;
-	}
-	else {
-	    $html .= qq|<span class="notfavorite" id="${name}_name">$name</span> <a id="${name}_fave_change_link" class="favorite_link" href="#"><span id="${name}_fave_change_text">Favorite</span></a> <a class="remove_link" href="#">Remove</a>|;
-	}
-	$html .= "</div>\n";
-    }
-    return $html;
-}
-
 
 __DATA__
 
@@ -218,7 +199,7 @@ __DATA__
 	</div>
 	<div id="current_interests">
 	<%==
-	    $self->current_interests;
+	    Stuff->current_interests;
 	%>    
 	</div>
     </body>
